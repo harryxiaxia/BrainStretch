@@ -41,7 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CheckCheck.cs" />
+    <Compile Include="Fundamentals\Bag.cs" />
     <Compile Include="Fundamentals\BinarySearch.cs" />
+    <Compile Include="Fundamentals\QueueX.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

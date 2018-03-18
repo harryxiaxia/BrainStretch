@@ -8,7 +8,7 @@ namespace UnitTests.Fundamentals
     public class BinarySearchTests
     {
         [TestMethod]
-        public void Rank_Positive()
+        public void BinarySearch_Rank_Positive()
         {
             var arr1 = new int[]{ 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             Assert.AreEqual(0, BinarySearch.Rank(1, arr1));
@@ -23,10 +23,14 @@ namespace UnitTests.Fundamentals
             Assert.AreEqual(-1, BinarySearch.Rank(10, arr4));
 
             var arr5 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            Assert.AreEqual(-1, BinarySearch.Rank(0, arr5));
+            Assert.AreEqual(-1, BinarySearch.Rank(0, arr5));        
 
             var arr6 = new int[] { };
             Assert.AreEqual(-1, BinarySearch.Rank(2, arr6));
+
+            var arr7 = new int[] { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 };
+            var rank = BinarySearch.Rank(4, arr7);
+            Assert.IsTrue(rank == 5 || rank == 6);
         }
     }
 }

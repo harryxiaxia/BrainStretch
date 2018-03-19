@@ -30,16 +30,10 @@ namespace Algorithms4th.Fundamentals
 
         public void Add(Item item)
         {
-            if (_firstNode == null)
-                _firstNode = new Node<Item> { Value = item, Next = null };
-            else
-            {
-                var newNode = new Node<Item> { Value = item };
-                var oldNode = _firstNode.Next;
-                _firstNode.Next = newNode;
-                newNode.Next = oldNode;
-            }
-
+            var newNode = new Node<Item> { Value = item };
+            newNode.Value = item;
+            newNode.Next = _firstNode;
+            _firstNode = newNode;
             _size++;
         }
 

@@ -7,38 +7,103 @@ using System.Threading.Tasks;
 
 namespace Algorithms4th.Fundamentals
 {
-    public class QueueX<TQueue> : IEnumerable<TQueue>
+    public class QueueX<TItem> : IEnumerable<TItem>
     {
-        public IEnumerator<TQueue> GetEnumerator()
+        private Node<TItem> _first;
+        private Node<TItem> _last;
+        private int _size;
+
+        public QueueX()
         {
-            throw new NotImplementedException();
+            _first = _last = null;
+            _size = 0;
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        public void Enqueue(TItem item)
         {
-            throw new NotImplementedException();
+            var newNode = new Node<TItem> { Value = item, Next = null};
+            if (_first == null)
+                _first = _last = newNode;
+            else
+            {
+                _last.Next = newNode;
+                _last = newNode;
+            }            
+            _size++;
         }
 
-        public QueueX() { }
-
-        public void Enqueue(TQueue item)
+        public TItem Dequeue()
         {
-            throw new NotImplementedException();
-        }
+            if (_first == null)
+                throw new IndexOutOfRangeException();
 
-        public TQueue Dequeue()
-        {
-            throw new NotImplementedException();
+            var deNode = _first;
+            var deValue = _first.Value;
+            _first = _first.Next;
+            deNode = null;
+            _size--;
+            return deValue;
         }
 
         public bool IsEmtpy()
         {
-            throw new NotImplementedException();
+            return _size == 0;
         }
 
         public int Size()
         {
-            throw new NotImplementedException();
+            return _size;
+        }
+
+        public IEnumerator<TItem> GetEnumerator()
+        {
+            return new QueueEnumerator<TItem>(_first);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
+
+        class QueueEnumerator<T> : IEnumerator<T>
+        {
+            private Node<T> _first;
+            private Node<T> _current;
+
+            public T Current => _current.Value;
+
+            object IEnumerator.Current => _current.Value;
+
+            public QueueEnumerator(Node<T> headInQueue)
+            {
+                _current = new Node<T>();
+                _current.Next = headInQueue;
+                _first = _current;
+            }
+
+            public void Dispose()
+            {                
+            }
+
+            public bool MoveNext()
+            {
+                if (_current.Next == null)
+                    return false;
+
+                _current = _current.Next;
+                return true;
+            }
+
+            public void Reset()
+            {
+                _current = _first;
+            }
+        }
+
+        class Node<TNode>
+        {
+            public TNode Value { get; set; }
+            public Node<TNode> Next { get; set; }
         }
     }
 }

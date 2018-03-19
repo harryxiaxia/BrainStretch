@@ -47,6 +47,7 @@
     <Compile Include="Fundamentals\QueueX.cs" />
     <Compile Include="Fundamentals\ResizingArrayBag.cs" />
     <Compile Include="Fundamentals\ResizingArrayQueue.cs" />
+    <Compile Include="Fundamentals\ResizingArrayStack.cs" />
     <Compile Include="Fundamentals\StackX.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

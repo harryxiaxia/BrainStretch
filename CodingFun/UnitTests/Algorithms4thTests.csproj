@@ -50,8 +50,8 @@
   <ItemGroup>
     <Compile Include="Fundamentals\BagTests.cs" />
     <Compile Include="Fundamentals\BinarySearchTests.cs" />
-    <Compile Include="Fundamentals\QueueXTests.cs" />
-    <Compile Include="Fundamentals\StackXTests.cs" />
+    <Compile Include="Fundamentals\QueueTests.cs" />
+    <Compile Include="Fundamentals\StackTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 
 namespace Algorithms4th.Fundamentals
 {
-    public class QueueX<TItem> : IEnumerable<TItem>
+    //Todo: Change to use array
+    public class ResizingArrayQueue<TItem> : IEnumerable<TItem>
     {
         private Node<TItem> _first;
         private Node<TItem> _last;
         private int _size;
 
-        public QueueX()
+        public ResizingArrayQueue()
         {
             _first = _last = null;
             _size = 0;
@@ -22,14 +23,14 @@ namespace Algorithms4th.Fundamentals
 
         public void Enqueue(TItem item)
         {
-            var newNode = new Node<TItem> { Value = item, Next = null};
+            var newNode = new Node<TItem> { Value = item, Next = null };
             if (_first == null)
                 _first = _last = newNode;
             else
             {
                 _last.Next = newNode;
                 _last = newNode;
-            }            
+            }
             _size++;
         }
 
@@ -66,7 +67,7 @@ namespace Algorithms4th.Fundamentals
 
         public IEnumerator<TItem> GetEnumerator()
         {
-            return new QueueEnumerator<TItem>(_first);
+            return new ResizingArrayQueueEnumerator<TItem>(_first);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -74,7 +75,7 @@ namespace Algorithms4th.Fundamentals
             return this.GetEnumerator();
         }
 
-        class QueueEnumerator<T> : IEnumerator<T>
+        class ResizingArrayQueueEnumerator<T> : IEnumerator<T>
         {
             private Node<T> _first;
             private Node<T> _current;
@@ -83,7 +84,7 @@ namespace Algorithms4th.Fundamentals
 
             object IEnumerator.Current => _current.Value;
 
-            public QueueEnumerator(Node<T> headInQueue)
+            public ResizingArrayQueueEnumerator(Node<T> headInQueue)
             {
                 _current = new Node<T>();
                 _current.Next = headInQueue;
@@ -91,7 +92,7 @@ namespace Algorithms4th.Fundamentals
             }
 
             public void Dispose()
-            {                
+            {
             }
 
             public bool MoveNext()

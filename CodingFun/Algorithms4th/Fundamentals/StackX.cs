@@ -1,62 +1,58 @@
-﻿using Algorithms4th.CustomException;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Algorithms4th.CustomException;
 
 namespace Algorithms4th.Fundamentals
 {
-    public class QueueX<TItem> : IEnumerable<TItem>
+    public class StackX<TItem> : IEnumerable<TItem>
     {
-        private Node<TItem> _first;
-        private Node<TItem> _last;
+        private Node<TItem> _top;
         private int _size;
 
-        public QueueX()
+        public StackX()
         {
-            _first = _last = null;
+            _top = null;
             _size = 0;
         }
 
-        public void Enqueue(TItem item)
+        public void Push(TItem item)
         {
-            var newNode = new Node<TItem> { Value = item, Next = null};
-            if (_first == null)
-                _first = _last = newNode;
+            var newNode = new Node<TItem> { Value = item };
+
+            if (_top == null)
+                _top = newNode;
             else
             {
-                _last.Next = newNode;
-                _last = newNode;
-            }            
+                newNode.Next = _top;
+                _top = newNode;
+            }
+
             _size++;
+        }
+
+        public TItem Pop()
+        {
+            if (IsEmpty())
+                throw new NoSuchElementException("Stack is empty.");
+
+            Node<TItem> top = _top;
+            var item = _top.Value;        
+            _top = _top.Next;
+            top = null;
+            _size--;
+            return item;
         }
 
         public TItem Peek()
         {
-            if (IsEmtpy())
-                throw new NoSuchElementException();
+            if (IsEmpty())
+                throw new NoSuchElementException("Stack is empty.");
 
-            return _first.Value;
-        }
-
-        public TItem Dequeue()
-        {
-            if (IsEmtpy())
-                throw new NoSuchElementException();
-
-            var deNode = _first;
-            var deValue = _first.Value;
-            _first = _first.Next;
-            deNode = null;
-            _size--;
-            return deValue;
-        }
-
-        public bool IsEmtpy()
-        {
-            return _first == null;
+            return _top.Value;
         }
 
         public int Size()
@@ -64,9 +60,14 @@ namespace Algorithms4th.Fundamentals
             return _size;
         }
 
+        public bool IsEmpty()
+        {
+            return _size == 0;
+        }
+
         public IEnumerator<TItem> GetEnumerator()
         {
-            return new QueueEnumerator<TItem>(_first);
+            return new StackEnumerator<TItem>(_top);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -74,20 +75,19 @@ namespace Algorithms4th.Fundamentals
             return this.GetEnumerator();
         }
 
-        class QueueEnumerator<T> : IEnumerator<T>
+        class StackEnumerator<T> : IEnumerator<T>
         {
             private Node<T> _first;
             private Node<T> _current;
-
             public T Current => _current.Value;
 
             object IEnumerator.Current => _current.Value;
 
-            public QueueEnumerator(Node<T> headInQueue)
+            public StackEnumerator(Node<T> top)
             {
-                _current = new Node<T>();
-                _current.Next = headInQueue;
-                _first = _current;
+                _first = new Node<T>();
+                _first.Next = top;
+                _current = _first;
             }
 
             public void Dispose()

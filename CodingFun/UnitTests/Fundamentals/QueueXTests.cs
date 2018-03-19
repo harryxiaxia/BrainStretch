@@ -41,6 +41,8 @@ namespace UnitTests.Fundamentals
             {
                 Assert.AreEqual(i, list[index++]);
             }
+
+            Assert.AreEqual(9, queue.Peek());
         }
     }
 }

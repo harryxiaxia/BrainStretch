@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace UnitTests.Fundamentals
 {
     [TestClass]
-    public class StackXTests
+    public class StackTests
     {
         [TestMethod]
         public void StackX_Positive()

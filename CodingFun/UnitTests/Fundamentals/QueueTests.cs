@@ -9,7 +9,7 @@ using Algorithms4th.Fundamentals;
 namespace UnitTests.Fundamentals
 {
     [TestClass]
-    public class QueueXTests
+    public class QueueTests
     {
         [TestMethod]
         public void QueueX_Positive()

@@ -62,7 +62,7 @@ namespace Algorithms4th.Fundamentals
 
         public bool IsEmpty()
         {
-            return _size == 0;
+            return _top == null;
         }
 
         public IEnumerator<TItem> GetEnumerator()

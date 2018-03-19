@@ -9,111 +9,115 @@ using System.Threading.Tasks;
 namespace Algorithms4th.Fundamentals
 {
     //Todo: Change to use array
-    public class ResizingArrayQueue<TItem> : IEnumerable<TItem>
+    public class ResizingArrayQueue<TItem> //: IEnumerable<TItem>
     {
-        private Node<TItem> _first;
-        private Node<TItem> _last;
-        private int _size;
+        //private TItem[] array;
+        //private const int DefaultSize = 2;
+        //private int _first = -1;
+        //private int _last = -1;
+        //private int _size;
 
-        public ResizingArrayQueue()
-        {
-            _first = _last = null;
-            _size = 0;
-        }
+        //public ResizingArrayQueue()
+        //{
+        //    array = new TItem[DefaultSize];
+        //    _size = 0;
+        //}
 
-        public void Enqueue(TItem item)
-        {
-            var newNode = new Node<TItem> { Value = item, Next = null };
-            if (_first == null)
-                _first = _last = newNode;
-            else
-            {
-                _last.Next = newNode;
-                _last = newNode;
-            }
-            _size++;
-        }
+        //public void Enqueue(TItem item)
+        //{
+        //    if (IsEmtpy())
+        //        _first++;
+        //    if (array.Length == _last + 1)
+        //        ExpandArray();
+        //    array[++_last] = item;
+        //    _size++;
+        //}
 
-        public TItem Peek()
-        {
-            if (IsEmtpy())
-                throw new NoSuchElementException();
+        //private void ExpandArray()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-            return _first.Value;
-        }
+        //public TItem Peek()
+        //{
+        //    if (IsEmtpy())
+        //        throw new NoSuchElementException();
 
-        public TItem Dequeue()
-        {
-            if (IsEmtpy())
-                throw new NoSuchElementException();
+        //    return _first.Value;
+        //}
 
-            var deNode = _first;
-            var deValue = _first.Value;
-            _first = _first.Next;
-            deNode = null;
-            _size--;
-            return deValue;
-        }
+        //public TItem Dequeue()
+        //{
+        //    if (IsEmtpy())
+        //        throw new NoSuchElementException();
 
-        public bool IsEmtpy()
-        {
-            return _first == null;
-        }
+        //    var deNode = _first;
+        //    var deValue = _first.Value;
+        //    _first = _first.Next;
+        //    deNode = null;
+        //    _size--;
+        //    return deValue;
+        //}
 
-        public int Size()
-        {
-            return _size;
-        }
+        //public bool IsEmtpy()
+        //{
+        //    return _first == -1;
+        //}
 
-        public IEnumerator<TItem> GetEnumerator()
-        {
-            return new ResizingArrayQueueEnumerator<TItem>(_first);
-        }
+        //public int Size()
+        //{
+        //    return _size;
+        //}
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
+        //public IEnumerator<TItem> GetEnumerator()
+        //{
+        //    return new ResizingArrayQueueEnumerator<TItem>(_first);
+        //}
 
-        class ResizingArrayQueueEnumerator<T> : IEnumerator<T>
-        {
-            private Node<T> _first;
-            private Node<T> _current;
+        //IEnumerator IEnumerable.GetEnumerator()
+        //{
+        //    return this.GetEnumerator();
+        //}
 
-            public T Current => _current.Value;
+        //class ResizingArrayQueueEnumerator<T> : IEnumerator<T>
+        //{
+        //    private Node<T> _first;
+        //    private Node<T> _current;
 
-            object IEnumerator.Current => _current.Value;
+        //    public T Current => _current.Value;
 
-            public ResizingArrayQueueEnumerator(Node<T> headInQueue)
-            {
-                _current = new Node<T>();
-                _current.Next = headInQueue;
-                _first = _current;
-            }
+        //    object IEnumerator.Current => _current.Value;
 
-            public void Dispose()
-            {
-            }
+        //    public ResizingArrayQueueEnumerator(Node<T> headInQueue)
+        //    {
+        //        _current = new Node<T>();
+        //        _current.Next = headInQueue;
+        //        _first = _current;
+        //    }
 
-            public bool MoveNext()
-            {
-                if (_current.Next == null)
-                    return false;
+        //    public void Dispose()
+        //    {
+        //    }
 
-                _current = _current.Next;
-                return true;
-            }
+        //    public bool MoveNext()
+        //    {
+        //        if (_current.Next == null)
+        //            return false;
 
-            public void Reset()
-            {
-                _current = _first;
-            }
-        }
+        //        _current = _current.Next;
+        //        return true;
+        //    }
 
-        class Node<TNode>
-        {
-            public TNode Value { get; set; }
-            public Node<TNode> Next { get; set; }
-        }
+        //    public void Reset()
+        //    {
+        //        _current = _first;
+        //    }
+        //}
+
+        //class Node<TNode>
+        //{
+        //    public TNode Value { get; set; }
+        //    public Node<TNode> Next { get; set; }
+        //}
     }
 }

@@ -10,28 +10,34 @@ namespace Algorithms4th.Fundamentals
     //Todo: Update code to use resizing array
     public class ResizingArrayBag<Item> : IEnumerable<Item>
     {
-        class Node<T>
-        {
-            public T Value { get; set; }
-            public Node<T> Next { get; set; }
-        }
+        private const int DefaultSize = 2;
 
-        private Node<Item> _firstNode;
         private int _size;
+        private Item[] array;
 
         public ResizingArrayBag()
         {
-            _firstNode = null;
+            array = new Item[2];
             _size = 0;
         }
 
         public void Add(Item item)
         {
-            var newNode = new Node<Item> { Value = item };
-            newNode.Value = item;
-            newNode.Next = _firstNode;
-            _firstNode = newNode;
+            if (array.Length == _size)
+                ExpandArray();
+
+            array[_size] = item;
             _size++;
+        }
+
+        private void ExpandArray()
+        {
+            var newArray = new Item[array.Length * 2];
+            for (var i = 0; i < array.Length; i++)
+                newArray[i] = array[i];
+            Item[] oldArray = array;
+            array = newArray;
+            oldArray = null;
         }
 
         public bool IsEmpty()
@@ -46,43 +52,16 @@ namespace Algorithms4th.Fundamentals
 
         public IEnumerator<Item> GetEnumerator()
         {
-            return new ResizingArrayBagEnumerator<Item>(_firstNode);
+            for(var i=0; i<_size; i++)
+            {
+                yield return array[i];
+            }
         }
 
 
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
-        }
-
-        class ResizingArrayBagEnumerator<TItem> : IEnumerator<TItem>
-        {
-            private Node<TItem> _firstNode = new Node<TItem>();
-            private Node<TItem> _currentNode;
-            public ResizingArrayBagEnumerator(Node<TItem> item)
-            {
-                _firstNode.Next = item;
-                _currentNode = _firstNode;
-            }
-            public TItem Current => _currentNode.Value;
-
-            object IEnumerator.Current => _currentNode.Value;
-
-            public void Dispose() { }
-
-            public bool MoveNext()
-            {
-                if (_currentNode.Next == null)
-                    return false;
-
-                _currentNode = _currentNode.Next;
-                return true;
-            }
-
-            public void Reset()
-            {
-                _currentNode = _firstNode;
-            }
         }
     }
 }

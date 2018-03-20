@@ -9,115 +9,115 @@ using System.Threading.Tasks;
 namespace Algorithms4th.Fundamentals
 {
     //Todo: Change to use array
-    public class ResizingArrayQueue<TItem> //: IEnumerable<TItem>
+    public class ResizingArrayQueue<TItem> : IEnumerable<TItem>
     {
-        //private TItem[] array;
-        //private const int DefaultSize = 2;
-        //private int _first = -1;
-        //private int _last = -1;
-        //private int _size;
+        private TItem[] array;
+        private int _arrLen = 2;
+        private int _first = 0;
+        private int _last = 0;
+        private int _size;
 
-        //public ResizingArrayQueue()
-        //{
-        //    array = new TItem[DefaultSize];
-        //    _size = 0;
-        //}
+        public ResizingArrayQueue()
+        {
+            array = new TItem[_arrLen];
+            _size = 0;
+        }
 
-        //public void Enqueue(TItem item)
-        //{
-        //    if (IsEmtpy())
-        //        _first++;
-        //    if (array.Length == _last + 1)
-        //        ExpandArray();
-        //    array[++_last] = item;
-        //    _size++;
-        //}
+        public void Enqueue(TItem item)
+        {
+            if (IsEmtpy())
+                array[_last] = item;
+            else
+            {
+                if ((_last + 1) % _arrLen == _first)
+                    ExpandArray();
+                _last = (_last + 1) % _arrLen;
+                array[_last] = item;
+            }
+            _size++;
+        }
 
-        //private void ExpandArray()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        private void ExpandArray()
+        {
+            var newArr = new TItem[_arrLen * 2];
+            int index = _first;
+            for(int i=0; i<_arrLen; i++)
+            {
+                newArr[i] = array[index];
+                index = (index + 1) % _arrLen;
+            }
+            _first = 0;
+            _last = _arrLen - 1;
+            array = newArr;
+            _arrLen = array.Length;
+        }
 
-        //public TItem Peek()
-        //{
-        //    if (IsEmtpy())
-        //        throw new NoSuchElementException();
+        public TItem Peek()
+        {
+            if (IsEmtpy())
+                throw new NoSuchElementException("Queue is empty.");
 
-        //    return _first.Value;
-        //}
+            return array[_first];
+        }
 
-        //public TItem Dequeue()
-        //{
-        //    if (IsEmtpy())
-        //        throw new NoSuchElementException();
+        public TItem Dequeue()
+        {
+            if (IsEmtpy())
+                throw new NoSuchElementException("Queue is empty.");
 
-        //    var deNode = _first;
-        //    var deValue = _first.Value;
-        //    _first = _first.Next;
-        //    deNode = null;
-        //    _size--;
-        //    return deValue;
-        //}
+            var value = array[_first];
+            if(_first != _last)
+                _first = (_first + 1) % _arrLen;
+            _size--;
+            if (_size <= _arrLen / 4)
+                ShrinkArray();
+            return value;
+        }
 
-        //public bool IsEmtpy()
-        //{
-        //    return _first == -1;
-        //}
+        private void ShrinkArray()
+        {
+            var newArr = new TItem[_arrLen / 2];
+            int index = _first;
+            for(int i = 0; i < _size; i++)
+            {
+                newArr[i] = array[index];
+                index = (index + 1) % _arrLen;
+            }
+            array = newArr;
+            _arrLen = array.Length;
+            _first = 0;
+            _last = _size - 1;
+        }
 
-        //public int Size()
-        //{
-        //    return _size;
-        //}
+        public bool IsEmtpy()
+        {
+            return _size == 0;
+        }
 
-        //public IEnumerator<TItem> GetEnumerator()
-        //{
-        //    return new ResizingArrayQueueEnumerator<TItem>(_first);
-        //}
+        public int Size()
+        {
+            return _size;
+        }
 
-        //IEnumerator IEnumerable.GetEnumerator()
-        //{
-        //    return this.GetEnumerator();
-        //}
+        public IEnumerator<TItem> GetEnumerator()
+        {
+            int index = _first;
+            for(int i = 0; i < _size; i++)
+            {
+                yield return array[index];
+                index = (index + 1) % _arrLen;
+            }
+        }
 
-        //class ResizingArrayQueueEnumerator<T> : IEnumerator<T>
-        //{
-        //    private Node<T> _first;
-        //    private Node<T> _current;
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
 
-        //    public T Current => _current.Value;
-
-        //    object IEnumerator.Current => _current.Value;
-
-        //    public ResizingArrayQueueEnumerator(Node<T> headInQueue)
-        //    {
-        //        _current = new Node<T>();
-        //        _current.Next = headInQueue;
-        //        _first = _current;
-        //    }
-
-        //    public void Dispose()
-        //    {
-        //    }
-
-        //    public bool MoveNext()
-        //    {
-        //        if (_current.Next == null)
-        //            return false;
-
-        //        _current = _current.Next;
-        //        return true;
-        //    }
-
-        //    public void Reset()
-        //    {
-        //        _current = _first;
-        //    }
-        //}
-
-        //class Node<TNode>
-        //{
-        //    public TNode Value { get; set; }
-        //    public Node<TNode> Next { get; set; }
-        //}
+        class Node<TNode>
+        {
+            public TNode Value { get; set; }
+            public Node<TNode> Next { get; set; }
+        }
     }
 }

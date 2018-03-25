@@ -11,28 +11,46 @@ namespace Algorithms4th.Fundamentals
     //Todo: change to use array
     public class ResizingArrayStack<TItem> : IEnumerable<TItem>
     {
-        private Node<TItem> _top;
+        private int _top;
         private int _size;
+        private TItem[] _array;
+        private int _arrLen;
 
         public ResizingArrayStack()
         {
-            _top = null;
-            _size = 0;
+            _top = _size = 0;
+            _arrLen = 2;
+            _array = new TItem[_arrLen];
         }
 
         public void Push(TItem item)
         {
-            var newNode = new Node<TItem> { Value = item };
-
-            if (_top == null)
-                _top = newNode;
+            if (IsEmpty())
+                _array[_top] = item;
             else
             {
-                newNode.Next = _top;
-                _top = newNode;
+                if (_size == _arrLen)
+                    Resize(_arrLen * 2);
+                _top++;
+                if (_top >= _arrLen)
+                    _top = 0;
+                _array[_top] = item;
             }
-
             _size++;
+        }
+
+        private void Resize(int size)
+        {
+            var newArray = new TItem[size];
+            for(int i=_size-1; i>=0; i--)
+            {
+                newArray[i] = _array[_top--];
+                if (_top < 0)
+                    _top = _arrLen - 1;
+            }
+            _top = _size-1;
+            _arrLen = size;
+            _array = newArray;
         }
 
         public TItem Pop()
@@ -40,12 +58,13 @@ namespace Algorithms4th.Fundamentals
             if (IsEmpty())
                 throw new NoSuchElementException("Stack is empty.");
 
-            Node<TItem> top = _top;
-            var item = _top.Value;
-            _top = _top.Next;
-            top = null;
+            var value = _array[_top--];
             _size--;
-            return item;
+            if (_top < 0)
+                _top = _arrLen - 1;
+            if(_size >= 2 && _size <= _arrLen / 4)
+                Resize(_arrLen / 2);
+            return value;
         }
 
         public TItem Peek()
@@ -53,7 +72,7 @@ namespace Algorithms4th.Fundamentals
             if (IsEmpty())
                 throw new NoSuchElementException("Stack is empty.");
 
-            return _top.Value;
+            return _array[_top];
         }
 
         public int Size()
@@ -68,52 +87,16 @@ namespace Algorithms4th.Fundamentals
 
         public IEnumerator<TItem> GetEnumerator()
         {
-            return new ResizingArrayStackEnumerator<TItem>(_top);
+            for(var i=0; i<_size; i++)
+            {
+                yield return _array[_top--];
+                _top = _top < 0 ? _arrLen-1 : _top;
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
-        }
-
-        class ResizingArrayStackEnumerator<T> : IEnumerator<T>
-        {
-            private Node<T> _first;
-            private Node<T> _current;
-            public T Current => _current.Value;
-
-            object IEnumerator.Current => _current.Value;
-
-            public ResizingArrayStackEnumerator(Node<T> top)
-            {
-                _first = new Node<T>();
-                _first.Next = top;
-                _current = _first;
-            }
-
-            public void Dispose()
-            {
-            }
-
-            public bool MoveNext()
-            {
-                if (_current.Next == null)
-                    return false;
-
-                _current = _current.Next;
-                return true;
-            }
-
-            public void Reset()
-            {
-                _current = _first;
-            }
-        }
-
-        class Node<TNode>
-        {
-            public TNode Value { get; set; }
-            public Node<TNode> Next { get; set; }
         }
     }
 }

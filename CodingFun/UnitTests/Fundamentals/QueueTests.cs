@@ -65,18 +65,21 @@ namespace UnitTests.Fundamentals
             Assert.AreEqual(5, queue.Dequeue());
             Assert.AreEqual(7, queue.Dequeue());
             Assert.AreEqual(2, queue.Size());
+            Assert.AreEqual(9, queue.Dequeue());
+            Assert.AreEqual(16, queue.Dequeue());
+            Assert.AreEqual(0, queue.Size());
 
             queue.Enqueue(22);
             queue.Enqueue(33);
             queue.Enqueue(44);
-            var list = new List<int> { 9, 16, 22, 33, 44 };
+            var list = new List<int> { 22, 33, 44 };
             var index = 0;
             foreach (var i in queue)
             {
                 Assert.AreEqual(i, list[index++]);
             }
 
-            Assert.AreEqual(9, queue.Peek());
+            Assert.AreEqual(22, queue.Peek());
         }
     }
 }

@@ -69,7 +69,7 @@ namespace Algorithms4th.Fundamentals
             if(_first != _last)
                 _first = (_first + 1) % _arrLen;
             _size--;
-            if (_size <= _arrLen / 4)
+            if (_size >= 2 && _size <= _arrLen / 4)
                 ShrinkArray();
             return value;
         }

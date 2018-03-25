@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Algorithms4th.Sorting
 {
-    public interface ISortStrategy<T>
+    public class UnorderedArrayMaxPQ
     {
-        void Sort(T[] array);
     }
 }

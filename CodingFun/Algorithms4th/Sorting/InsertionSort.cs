@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Algorithms4th.Sorting
 {
-    class InsertionSort<T> : SortItemComparable<T>, ISortStrategy<T> where T : IComparable
+    class InsertionSort<T> : ItemComparable<T>, ISortStrategy<T> where T : IComparable
     {
         public void Sort(T[] array)
         {

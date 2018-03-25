@@ -52,11 +52,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sorting\InsertionSort.cs" />
     <Compile Include="Sorting\ISortStrategy.cs" />
+    <Compile Include="Sorting\MaxPQ.cs" />
     <Compile Include="Sorting\MergeSort.cs" />
     <Compile Include="Sorting\QuickSort.cs" />
     <Compile Include="Sorting\QuickSortThreeWay.cs" />
     <Compile Include="Sorting\SelectionSort.cs" />
-    <Compile Include="Sorting\SortComparable.cs" />
+    <Compile Include="Sorting\ItemComparable.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Context\" />

@@ -53,6 +53,7 @@
     <Compile Include="Fundamentals\QueueTests.cs" />
     <Compile Include="Fundamentals\StackTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sorting\SortTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

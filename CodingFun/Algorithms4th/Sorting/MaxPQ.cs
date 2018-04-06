@@ -10,12 +10,13 @@ namespace Algorithms4th.Sorting
     public class MaxPQ<T> : ItemComparable<T> where T : IComparable
     {
         private T[] _array;
-        private int _size;
+        private int _lastIndex;
         private int _arrLength;
 
         public MaxPQ()
         {
             //Default size it 2;
+            _lastIndex = 0;
             _arrLength = 2;
             _array = new T[_arrLength];
         }
@@ -26,84 +27,87 @@ namespace Algorithms4th.Sorting
 
         public void Insert(T item)
         {
-            if (_size == _arrLength)
+            if (_lastIndex == _arrLength-1)
                 Resize(_arrLength * 2);
 
-            _array[_size++] = item;
-            Swap(_array, 0, _size - 1);
-            Swim(_size-1);
+            _array[++_lastIndex] = item;
+            Swim(_lastIndex);
         }
 
         public T Max()
         {
-            if (_size == 0)
+            if (_lastIndex == 0)
                 throw new NoSuchElementException("PQ is empty");
             return _array[0];
         }
 
         public T DelMax()
         {
-            if (_size == 0)
+            if (_lastIndex == 0)
                 throw new NoSuchElementException("PQ is empty");
-            T item = _array[0];
-            Swap(_array, 0, _size - 1);
-            _size--;
-            Sink(0);
+            T item = _array[1];
+            Swap(_array, 1, _lastIndex);
+            _array[_lastIndex] = default(T);
+            _lastIndex--;
+            Sink(1);
             return item;
         }
 
         public bool IsEmpty()
         {
-            return _size == 0;
+            return _lastIndex == 0;
         }
 
         public int Size()
         {
-            return _size;
+            return _lastIndex;
         }
 
         private void Resize(int Length)
         {
             var newArray = new T[Length];
-            for(int i=0; i<_size; i++)            
+            for(int i=0; i<_lastIndex; i++)            
                 newArray[i] = _array[i];            
             _array = newArray;
-            _size = Length;
+            _lastIndex = Length;
         }
 
-        private void Swim(int index)
+        private void Swim(int k)
         {
-            while(index > 0)
+            while(k > 1 && Less(_array[k/2], _array[k]))
             {
-                if (Less(_array[index / 2], _array[index]))
-                    Swap(_array, index / 2, index);
-                index /= index;
+                Swap(_array, k / 2, k);
+                k /= 2;
             }
         }
 
-        private void Sink(int index)
+        private void Sink(int k)
         {
-            while(index <= _size-1)
+            while(2*k <= _lastIndex)
             {
-                int lc = index * 2;
-                int rc = index * 2 + 1;
-                if (lc > _size - 1)
-                    break;
-
-                if(rc > _size - 1)
-                {
-                    if (Less(_array[index], _array[lc]))
-                        Swap(_array, index, lc);
-                }
-                else
-                {
-                    if (Less(_array[lc], _array[rc]) && Less(_array[index], _array[rc]))
-                        Swap(_array, index, rc);
-
-                    if (Less(_array[rc], _array[lc]) && Less(_array[index], _array[lc]))
-                        Swap(_array, index, lc);
-                }
+                int j = 2 * k;
+                if (j < _lastIndex && Less(_array[j], _array[j + 1])) j++;
+                if (Less(_array[j], _array[k])) break;
+                Swap(_array, j, k);
+                k = j;
             }
+        }
+
+        private bool IsMaxHeap()
+        {
+            return IsMaxHeap(1);
+        }
+
+        private bool IsMaxHeap(int index)
+        {
+            if (index > _lastIndex) return true;
+            var left = 2 * index;
+            var right = 2 * index + 1;
+
+            if (left <= _lastIndex && Less(_array[index], _array[left])) return false;
+            if (right <= _lastIndex && Less(_array[index], _array[right])) return true;
+
+            return IsMaxHeap(2 * index) && IsMaxHeap(2 * index + 1);
         }
     }
 }

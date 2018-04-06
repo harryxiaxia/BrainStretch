@@ -8,3 +8,7 @@
 /CodingFun/CommandLineCenter/bin
 /CodingFun/.vs/CodingFun/v15/*.suo
 /CodingFun/.vs/CodingFun/v15/Server/sqlite3
+/CodingFun/LeetCodeFun/bin/Debug
+/CodingFun/LeetCodeFun/obj/Debug
+/CodingFun/LeetCodeFunTests/bin/Debug
+/CodingFun/LeetCodeFunTests/obj/Debug

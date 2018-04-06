@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algorithms4th", "Algorithms
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algorithms4thTests", "UnitTests\Algorithms4thTests.csproj", "{276FC0AE-1181-4303-ABAC-19558190DA95}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeetCodeFun", "LeetCodeFun\LeetCodeFun.csproj", "{2096D331-B31F-42CB-8409-98AD5CFF358A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeetCodeFunTests", "LeetCodeFunTests\LeetCodeFunTests.csproj", "{1FA7C116-D2D9-4ECF-AACC-0C71CE1953DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{276FC0AE-1181-4303-ABAC-19558190DA95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{276FC0AE-1181-4303-ABAC-19558190DA95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{276FC0AE-1181-4303-ABAC-19558190DA95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2096D331-B31F-42CB-8409-98AD5CFF358A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2096D331-B31F-42CB-8409-98AD5CFF358A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2096D331-B31F-42CB-8409-98AD5CFF358A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2096D331-B31F-42CB-8409-98AD5CFF358A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FA7C116-D2D9-4ECF-AACC-0C71CE1953DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FA7C116-D2D9-4ECF-AACC-0C71CE1953DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FA7C116-D2D9-4ECF-AACC-0C71CE1953DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FA7C116-D2D9-4ECF-AACC-0C71CE1953DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

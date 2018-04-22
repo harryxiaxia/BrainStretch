@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="PlayAround.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Solutions1_100.cs" />
+    <Compile Include="Solutions200_300.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

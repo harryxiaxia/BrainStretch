@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="PlayAroundTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Solution1_100Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
